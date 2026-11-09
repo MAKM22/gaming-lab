@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "provenance": "simulation",
+  "session_id": "mock-quantities",
+  "source_inputs": {
+    "schema_version": 1,
+    "provenance": "simulation",
+    "session_id": "mock-quantities",
+    "observations": [
+      {
+        "syscon": {
+          "timestamp": "2026-05-16T15:00:00.002Z",
+          "status": "success",
+          "reported_length": 7,
+          "data_hex": "FFFFFFFF",
+          "service_support": "supported"
+        },
+        "power": {
+          "workload": "illustrative",
+          "boundary": "example power boundary",
+          "input_channel": {
+            "timestamp": "2026-05-16T15:00:00.000Z",
+            "voltage_v": 3.6,
+            "current_a": 0.9,
+            "voltage_uncertainty": {"value": 0.5, "unit": "pct"},
+            "current_uncertainty": {"value": 1.0, "unit": "pct"}
+          },
+          "rails": {
+            "core": {
+              "timestamp": "2026-05-16T15:00:00.001Z",
+              "voltage_v": 1.2,
+              "current_a": 1.5,
+              "voltage_uncertainty": {"value": 0.5, "unit": "pct"},
+              "current_uncertainty": {"value": 1.0, "unit": "pct"}
+            },
+            "io": {
+              "timestamp": "2026-05-16T15:00:00.001Z",
+              "voltage_v": 3.3,
+              "current_a": 0.4,
+              "voltage_uncertainty": {"value": 0.5, "unit": "pct"},
+              "current_uncertainty": {"value": 1.0, "unit": "pct"}
+            }
+          },
+          "max_channel_skew_seconds": 0.01,
+          "uncertainty_type": "conservative_bound"
+        },
+        "attestations": {"coverage_complete": true, "outputs_non_overlapping": true},
+        "max_association_skew_seconds": 0.01
+      }
+    ]
+  },
+  "observations": [
+    {
+      "session_id": "mock-quantities",
+      "syscon": {
+        "timestamp": "2026-05-16T15:00:00.002000+00:00",
+        "status": "ok",
+        "identifier": 4294967295,
+        "service_support": "supported",
+        "boot_path_candidate": "service_boot_candidate",
+        "error": null
+      },
+      "power": {
+        "input_channel": {
+          "name": "input",
+          "timestamp": "2026-05-16T15:00:00+00:00",
+          "voltage_v": 3.6,
+          "current_a": 0.9,
+          "uncertainty_pct": null,
+          "uncertainty_w": 0.048762
+        },
+        "rails": [
+          {
+            "name": "core",
+            "timestamp": "2026-05-16T15:00:00.001000+00:00",
+            "voltage_v": 1.2,
+            "current_a": 1.5,
+            "uncertainty_pct": null,
+            "uncertainty_w": 0.02709
+          },
+          {
+            "name": "io",
+            "timestamp": "2026-05-16T15:00:00.001000+00:00",
+            "voltage_v": 3.3,
+            "current_a": 0.4,
+            "uncertainty_pct": null,
+            "uncertainty_w": 0.019866
+          }
+        ],
+        "workload": "illustrative",
+        "boundary": "example power boundary",
+        "input_power_w": 3.24,
+        "rail_power_w": [["core", 1.8], ["io", 1.32]],
+        "output_power_w": 3.12,
+        "balance_w": 0.12,
+        "balance_interval_w": [0.024282, 0.215718],
+        "classification": "POSITIVE_UNACCOUNTED_POWER",
+        "indeterminate_reasons": [],
+        "observed_skew_seconds": 0.001,
+        "max_skew_seconds": 0.01,
+        "uncertainty_type": "conservative_bound",
+        "confidence": null
+      },
+      "attestations": {"coverage_complete": true, "outputs_non_overlapping": true},
+      "association_skew_seconds": 0.002,
+      "max_association_skew_seconds": 0.01,
+      "timestamps_within_limit": true,
+      "causality_asserted": false
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Simulated telemetry replay test manifest",
+  "description": "Test metadata only; not a replay input or a claim that enhanced output is implemented.",
+  "type": "object",
+  "required": ["case_id", "input_file", "input_schema", "output_mode", "expected", "comparison"],
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {"type": "string", "pattern": "\\S"},
+    "input_file": {"type": "string", "pattern": "\\S"},
+    "input_schema": {"type": "string", "pattern": "\\S"},
+    "output_mode": {"enum": ["legacy", "enhanced"]},
+    "expected": {
+      "oneOf": [
+        {"$ref": "#/$defs/replay_result"},
+        {"$ref": "#/$defs/validation_error"}
+      ]
+    },
+    "comparison": {
+      "type": "object",
+      "required": ["relative_tolerance", "absolute_tolerance"],
+      "additionalProperties": false,
+      "properties": {
+        "relative_tolerance": {"type": "number", "minimum": 0},
+        "absolute_tolerance": {"type": "number", "minimum": 0}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "output_mode": {"const": "enhanced"},
+          "expected": {
+            "properties": {
+              "outcome": {"const": "replay"},
+              "classification": {"const": "INDETERMINATE"}
+            },
+            "required": ["outcome", "classification"]
+          }
+        },
+        "required": ["output_mode", "expected"]
+      },
+      "then": {"properties": {"expected": {"required": ["reason_codes"]}}}
+    },
+    {
+      "if": {
+        "properties": {"output_mode": {"const": "legacy"}},
+        "required": ["output_mode"]
+      },
+      "then": {"properties": {"expected": {"not": {"required": ["reason_codes"]}}}}
+    }
+  ],
+  "$defs": {
+    "interval": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Lower and upper balance bounds in watts; the runner must check lower <= upper."
+    },
+    "replay_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcome", "classification", "balance_interval_w"],
+      "properties": {
+        "outcome": {"const": "replay"},
+        "classification": {
+          "enum": [
+            "POSITIVE_UNACCOUNTED_POWER",
+            "NEGATIVE_BALANCE_DISCREPANCY",
+            "CONSISTENT_WITH_ZERO",
+            "INDETERMINATE"
+          ]
+        },
+        "balance_interval_w": {
+          "oneOf": [{"type": "null"}, {"$ref": "#/$defs/interval"}]
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "MISSING_UNCERTAINTY",
+              "SKEW_LIMIT_EXCEEDED",
+              "COVERAGE_UNSPECIFIED",
+              "NON_OVERLAP_UNCONFIRMED"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"classification": {"const": "INDETERMINATE"}}, "required": ["classification"]},
+          "then": {"properties": {"balance_interval_w": {"type": "null"}}},
+          "else": {
+            "properties": {"balance_interval_w": {"$ref": "#/$defs/interval"}},
+            "not": {"required": ["reason_codes"]}
+          }
+        }
+      ]
+    },
+    "validation_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcome", "error_stage"],
+      "properties": {
+        "outcome": {"const": "validation_error"},
+        "error_stage": {
+          "enum": ["schema", "replay"],
+          "description": "Stage at which the input must be rejected; not an indeterminate reason code."
+        }
+      }
+    }
+  }
+}

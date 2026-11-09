@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "provenance": "simulation",
+  "session_id": "mock-example",
+  "source_inputs": {
+    "schema_version": 1,
+    "provenance": "simulation",
+    "session_id": "mock-example",
+    "observations": [{
+      "syscon": {
+        "timestamp": "2026-11-09T02:00:00Z",
+        "status": "success",
+        "reported_length": 7,
+        "data_hex": "FFFFFFFF",
+        "service_support": "unknown"
+      },
+      "power": {
+        "workload": "illustrative",
+        "boundary": "example power boundary",
+        "input_channel": {
+          "timestamp": "2026-11-09T02:00:00Z",
+          "voltage_v": 3.62,
+          "current_a": 0.85,
+          "uncertainty_pct": 2.0
+        },
+        "rails": {
+          "core": {
+            "timestamp": "2026-11-09T02:00:00.005Z",
+            "voltage_v": 1.2,
+            "current_a": 1.0,
+            "uncertainty_pct": 3.0
+          }
+        },
+        "max_channel_skew_seconds": 0.01,
+        "uncertainty_type": "conservative_bound"
+      },
+      "attestations": {"coverage_complete": false, "outputs_non_overlapping": true},
+      "max_association_skew_seconds": 0.01
+    }]
+  },
+  "observations": [{
+    "session_id": "mock-example",
+    "syscon": {
+      "timestamp": "2026-11-09T02:00:00+00:00",
+      "status": "ok",
+      "identifier": 4294967295,
+      "service_support": "unknown",
+      "boot_path_candidate": "unknown",
+      "error": null
+    },
+    "power": {
+      "input_channel": {
+        "name": "input",
+        "timestamp": "2026-11-09T02:00:00+00:00",
+        "voltage_v": 3.62,
+        "current_a": 0.85,
+        "uncertainty_pct": 2.0,
+        "uncertainty_w": null
+      },
+      "rails": [{
+        "name": "core",
+        "timestamp": "2026-11-09T02:00:00.005000+00:00",
+        "voltage_v": 1.2,
+        "current_a": 1.0,
+        "uncertainty_pct": 3.0,
+        "uncertainty_w": null
+      }],
+      "workload": "illustrative",
+      "boundary": "example power boundary",
+      "input_power_w": 3.077,
+      "rail_power_w": [["core", 1.2]],
+      "output_power_w": 1.2,
+      "balance_w": 1.877,
+      "balance_interval_w": [1.77946, 1.97454],
+      "classification": "POSITIVE_UNACCOUNTED_POWER",
+      "indeterminate_reasons": [],
+      "observed_skew_seconds": 0.005,
+      "max_skew_seconds": 0.01,
+      "uncertainty_type": "conservative_bound",
+      "confidence": null
+    },
+    "attestations": {"coverage_complete": false, "outputs_non_overlapping": true},
+    "association_skew_seconds": 0.005,
+    "max_association_skew_seconds": 0.01,
+    "timestamps_within_limit": true,
+    "causality_asserted": false
+  }]
+}

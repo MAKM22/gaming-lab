@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Simulated observation replay input version 1",
+  "type": "object",
+  "required": ["schema_version", "provenance", "session_id", "observations"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "provenance": {"const": "simulation"},
+    "session_id": {"type": "string", "pattern": "\\S"},
+    "observations": {"type": "array", "items": {"$ref": "#/$defs/observation"}}
+  },
+  "$defs": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "quantity_uncertainty": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "value": {"type": "number", "minimum": 0},
+        "unit": {"type": "string"}
+      }
+    },
+    "channel": {
+      "type": "object",
+      "required": ["timestamp", "voltage_v", "current_a"],
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {"$ref": "#/$defs/timestamp"},
+        "voltage_v": {"type": "number", "minimum": 0},
+        "current_a": {"type": "number", "minimum": 0},
+        "uncertainty_pct": {"type": ["number", "null"], "minimum": 0},
+        "voltage_uncertainty": {
+          "allOf": [
+            {"$ref": "#/$defs/quantity_uncertainty"},
+            {"properties": {"unit": {"enum": ["pct", "V"]}}}
+          ]
+        },
+        "current_uncertainty": {
+          "allOf": [
+            {"$ref": "#/$defs/quantity_uncertainty"},
+            {"properties": {"unit": {"enum": ["pct", "A"]}}}
+          ]
+        }
+      },
+      "oneOf": [
+        {"required": ["uncertainty_pct"], "not": {"anyOf": [
+          {"required": ["voltage_uncertainty"]}, {"required": ["current_uncertainty"]}
+        ]}},
+        {"required": ["voltage_uncertainty", "current_uncertainty"],
+         "not": {"required": ["uncertainty_pct"]}}
+      ]
+    },
+    "syscon": {
+      "type": "object",
+      "required": ["timestamp", "status", "reported_length", "data_hex", "service_support"],
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {"$ref": "#/$defs/timestamp"},
+        "status": {"enum": ["success", "transport_error", "unsupported"]},
+        "reported_length": {"type": ["integer", "null"]},
+        "data_hex": {"type": "string", "pattern": "^([0-9a-fA-F]{2})*$"},
+        "service_support": {"enum": ["supported", "unsupported", "unknown"]}
+      }
+    },
+    "power": {
+      "type": "object",
+      "required": ["workload", "boundary", "input_channel", "rails", "max_channel_skew_seconds", "uncertainty_type"],
+      "additionalProperties": false,
+      "properties": {
+        "workload": {"type": "string", "pattern": "\\S"},
+        "boundary": {"type": "string", "pattern": "\\S"},
+        "input_channel": {"$ref": "#/$defs/channel"},
+        "rails": {
+          "type": "object", "minProperties": 1,
+          "propertyNames": {"pattern": "\\S"},
+          "additionalProperties": {"$ref": "#/$defs/channel"}
+        },
+        "max_channel_skew_seconds": {"type": "number", "minimum": 0},
+        "uncertainty_type": {"enum": ["conservative_bound", "independent_normal_1sigma", null]},
+        "confidence": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"uncertainty_type": {"type": "null"}}, "required": ["uncertainty_type"]},
+          "then": {
+            "properties": {
+              "input_channel": {"required": ["uncertainty_pct"]},
+              "rails": {"additionalProperties": {"required": ["uncertainty_pct"]}}
+            }
+          }
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "required": ["syscon", "power", "attestations", "max_association_skew_seconds"],
+      "additionalProperties": false,
+      "properties": {
+        "syscon": {"$ref": "#/$defs/syscon"},
+        "power": {"$ref": "#/$defs/power"},
+        "attestations": {
+          "type": "object",
+          "required": ["coverage_complete", "outputs_non_overlapping"],
+          "additionalProperties": false,
+          "properties": {
+            "coverage_complete": {"type": ["boolean", "null"]},
+            "outputs_non_overlapping": {"type": ["boolean", "null"]}
+          }
+        },
+        "max_association_skew_seconds": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}
