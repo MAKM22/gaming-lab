@@ -1,0 +1,84 @@
+:root { color-scheme: light; --paper: #f0f3f7; --ink: #20304e; --muted: #50617a; --line: #bfcbd8; --a: #223c78; --b: #126158; --cell: 48px; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, sans-serif; }
+button, input { font: inherit; }
+button, a, summary, input { touch-action: manipulation; }
+button { min-height: 44px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 5px; color: var(--ink); background: #fff; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--ink); background: #e3eaf5; }
+button:disabled { opacity: .48; cursor: default; }
+:focus-visible { outline: 3px solid #a05000; outline-offset: 3px; }
+a { color: inherit; text-underline-offset: 4px; }
+.masthead { max-width: 1200px; margin: auto; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid var(--line); }
+.wordmark { font-size: 32px; font-weight: 850; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+.wordmark span { font-size: 13px; font-weight: 600; }
+main { max-width: 1200px; margin: auto; padding: 24px 32px; }
+.intro { margin-bottom: 24px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+h1 { font-weight: 800; font-size: clamp(36px, 5vw, 56px); letter-spacing: -.035em; margin: 0; }
+.intro p { margin: 0 0 5px; color: var(--muted); line-height: 1.6; font-size: 14px; }
+.game-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 32px; align-items: start; }
+.board-panel { min-width: 0; }
+.board-top { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--ink); color: #fff; font-size: 14px; }
+.board-scroll { width: 100%; max-height: 650px; overflow: auto; border: 1px solid var(--ink); background: #c8d5e4; overscroll-behavior: contain; }
+.board { display: grid; grid-template-columns: repeat(12, var(--cell)); justify-content: center; width: max-content; min-width: 100%; padding: 8px; gap: 2px; }
+.square { width: var(--cell); height: var(--cell); min-height: 44px; padding: 0; border-radius: 0; border: 1px solid #b9c8da; background: #f8faff; position: relative; font-size: calc(var(--cell) * .46); font-weight: 800; }
+.square.checker { background: #e4ebf4; }
+.square .coordinate { font-size: 9px; font-weight: 400; position: absolute; bottom: 3px; right: 4px; color: #50617a; }
+.square.owner-a, .square.owner-a:hover:not(:disabled) { background: var(--a); color: #fff; border-radius: 50%; border: 2px solid var(--a); }
+.square.owner-b, .square.owner-b:hover:not(:disabled) { background: var(--b); color: #fff; border-radius: 5px; border: 2px solid var(--b); }
+.square .owner { position: absolute; top: 3px; left: 0; width: 100%; font-size: 9px; }
+.square.selected { outline: 3px solid #e9a32e; outline-offset: -3px; }
+.square.legal { border: 3px dashed #526da1; }
+.square.winning { outline: 4px solid #e9a32e; outline-offset: -4px; }
+.board-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 12px; font-size: 12px; }
+.board-tools input { width: 100px; height: 44px; accent-color: var(--ink); }
+.board-hint { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.play-panel { padding-top: 4px; }
+.player-heading { display: flex; align-items: center; gap: 12px; }
+.player-mark { display: grid; place-items: center; width: 48px; height: 48px; background: var(--a); color: white; border-radius: 50%; font-weight: 800; }
+.player-mark.b { background: var(--b); border-radius: 5px; }
+h2 { font-size: 24px; margin: 0; }
+#status { line-height: 1.5; min-height: 48px; margin: 18px 0; }
+h3 { font-size: 14px; margin: 18px 0 12px; }
+h3 span { font-weight: 400; float: right; color: var(--muted); font-size: 12px; }
+.reserve { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.reserve button { min-height: 62px; display: flex; align-items: center; justify-content: space-around; }
+.reserve strong { font-size: 25px; }
+.reserve small { color: var(--muted); font-size: 11px; }
+.reserve button[aria-pressed="true"] { background: var(--ink); color: white; border-color: var(--ink); }
+.reserve button[aria-pressed="true"] small { color: white; }
+.selection { font-size: 13px; min-height: 20px; font-weight: 650; }
+#cancel { width: 100%; }
+.win-guide { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 2px; }
+.families { display: flex; justify-content: space-between; gap: 8px; font-size: 19px; font-weight: 800; }
+.win-guide p, .storage { font-size: 12px; line-height: 1.6; color: var(--muted); }
+.actions { display: flex; gap: 8px; margin-top: 24px; }
+.actions button { flex: 1; }
+.storage.error { color: #9b281b; font-weight: 650; }
+.reading { margin-top: 32px; border-top: 1px solid var(--line); }
+details { border-bottom: 1px solid var(--line); padding: 16px 0; line-height: 1.7; }
+summary { min-height: 44px; display: list-item; padding-top: 8px; font-weight: 650; cursor: pointer; }
+details p, details li { max-width: 75ch; }
+table { border-collapse: collapse; font-size: 14px; width: 100%; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+footer { max-width: 1200px; margin: auto; padding: 20px 32px 32px; font-size: 12px; color: var(--muted); }
+@media (max-width: 760px) {
+  body { padding-bottom: calc(128px + env(safe-area-inset-bottom)); }
+  .masthead { padding: 16px; gap: 12px; }
+  .wordmark span { max-width: 70px; font-size: 12px; }
+  .masthead > a:last-child { font-size: 12px; max-width: 105px; }
+  main { padding: 20px 16px; }
+  .intro { display: block; margin-bottom: 20px; }
+  .intro p { margin-top: 8px; }
+  .game-layout { display: flex; flex-direction: column; gap: 20px; }
+  .board-panel, .play-panel { width: 100%; }
+  .board-scroll { max-height: 310px; }
+  .reserve-dock { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); background: #f0f3f7; border-top: 2px solid var(--ink); box-shadow: 0 -4px 12px #20304e15; }
+  .reserve-dock h3 { margin: 0 0 6px; }
+  .reserve-dock .selection { margin: 5px 0 0; font-size: 12px; }
+  .reserve { display: flex; overflow-x: auto; padding: 3px; gap: 6px; }
+  .reserve button { flex: 1 0 44px; min-height: 54px; flex-direction: column; padding: 4px 3px; }
+  .reserve strong { font-size: 22px; }
+  .families { justify-content: flex-start; gap: 24px; }
+  footer { padding: 16px; }
+}
+@media (prefers-reduced-motion: no-preference) { button { transition: background-color .12s; } }

@@ -16,3 +16,10 @@ A practical, community-friendly notebook for people who enjoy games, consoles, a
 Include the game or hardware model, platform, software/firmware version when relevant, steps to reproduce, and any trade-offs. Label personal opinions and unverified tips clearly. Never include passwords, account tokens, or other private information.
 
 This repository is for lawful, safe learning and sharing. Do not post pirated content, circumvention instructions, or files you do not have permission to distribute.
+
+## Playable experiments
+
+[144 / Number strategy](number-strategy/README.md) is a phone-friendly,
+two-player pass-and-play prototype with a matching printable 12 by 12 board,
+162 numbered pieces, rule sheet and mathematical reference. It runs locally;
+no deployment or App Store release is configured.

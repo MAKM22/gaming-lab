@@ -1,0 +1,14 @@
+{
+  "name": "gaming-lab-number-strategy",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dependency-free web game; Playwright is development-only validation tooling.",
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node --test engine.test.cjs",
+    "check:ui": "node ui-check.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}

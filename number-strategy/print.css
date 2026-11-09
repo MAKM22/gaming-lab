@@ -1,0 +1,31 @@
+* { box-sizing: border-box; }
+body { margin: 0; color: #111; background: #e8edf4; font-family: system-ui, sans-serif; }
+.no-print { max-width: 190mm; margin: 20px auto; font-size: 14px; line-height: 1.6; padding: 12px; background: white; }
+.no-print a { color: #223c78; }
+button { min-height: 44px; padding: 10px 16px; margin: 0 10px; cursor: pointer; }
+.page { background: white; width: 190mm; min-height: 240mm; margin: 20px auto; padding: 5mm; break-after: page; }
+.page:last-child { break-after: auto; }
+h1 { font-size: 22px; margin: 0 0 4mm; }
+h2, h3 { font-size: 15px; margin: 4mm 0 2mm; }
+p { font-size: 12px; line-height: 1.5; margin: 2mm 0 4mm; }
+.board-tile { width: 150mm; height: 150mm; display: grid; grid-template-columns: repeat(6, 25mm); margin: 5mm auto; border-top: .3mm solid black; border-left: .3mm solid black; }
+.print-square { width: 25mm; height: 25mm; border-bottom: .3mm solid black; border-right: .3mm solid black; padding: 1mm; font-size: 10px; }
+.print-square.alternate { background: #e9edf1; }
+.scale { width: 100mm; border-bottom: .5mm solid black; margin: 5mm 0; font-size: 11px; }
+.tokens { display: grid; grid-template-columns: repeat(9, 20mm); width: 180mm; border-left: .2mm dashed #555; border-top: .2mm dashed #555; }
+.token-cut { width: 20mm; height: 20mm; border-bottom: .2mm dashed #555; border-right: .2mm dashed #555; display: grid; place-items: center; }
+.token { width: 18mm; height: 18mm; border: .5mm solid #111; position: relative; display: grid; place-items: center; font-size: 30px; font-weight: bold; }
+.token.a { border-radius: 50%; }
+.token.b { border-radius: 1mm; border: 1mm double #111; }
+.token span { position: absolute; top: 1mm; left: 0; width: 100%; text-align: center; font-size: 9px; }
+.rule-page p { font-size: 11px; line-height: 1.45; margin: 2mm 0; }
+.rule-page table { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 1.45; }
+th, td { text-align: left; border-bottom: .2mm solid #999; padding: 2mm; }
+@page { size: A4; margin: 10mm; }
+@media print {
+  body { background: white; }
+  .no-print { display: none; }
+  .page { width: 190mm; min-height: 0; margin: 0; padding: 5mm; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+@media screen and (max-width: 750px) { body { overflow-x: auto; } .no-print { width: calc(100vw - 24px); } }

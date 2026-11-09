@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- THESIS: A shared tabletop, not a game-store landing page.
+OWN-WORLD: Cool white, midnight blue and teal; A circles and B squares.
+STORY: Choose a digit, touch the board, hand the device to the other player.
+FIRST VIEWPORT: Board at left, live turn and reserve at right; stacked on phones.
+FORM: User-approved clean tabletop direction; functional controls lead. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#223c78">
+  <meta name="description" content="144 squares, 162 pieces, three winning sequences. A local two-player number game.">
+  <title>144 / Number strategy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <script defer src="engine.js"></script>
+  <script defer src="rules.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead"><a class="wordmark" href="./">144<span>Number strategy</span></a><a href="print.html">Print the game kit &nearr;</a></header>
+  <main>
+    <section class="intro"><h1>Find your line.</h1><p>Place a number. Shift a piece. Connect three in order.<br>Two players, one shared board.</p></section>
+    <div class="game-layout">
+      <section class="board-panel" aria-label="Game board">
+        <div class="board-top"><strong id="turn-label">Player A's turn</strong><span id="turn-count">0 turns played</span></div>
+        <div class="board-scroll" id="board-scroll" tabindex="0" aria-label="Scrollable board. Swipe to explore; use arrow keys inside the board.">
+          <div id="board" class="board" role="group" aria-label="12 by 12 board"></div>
+        </div>
+        <div class="board-tools"><label for="zoom">Square size</label><input id="zoom" type="range" min="44" max="72" value="48"><output id="zoom-value" for="zoom">48px</output><button id="center" type="button">Center board</button></div>
+        <p class="board-hint">Swipe or scroll to explore all 144 squares. Arrow keys navigate; Enter places or selects.</p>
+      </section>
+      <aside class="play-panel">
+        <div class="player-heading"><span class="player-mark" id="player-mark">A</span><h2 id="player-name">Player A</h2></div>
+        <p id="status" role="status" aria-live="polite">Choose a number, then an empty square.</p>
+        <div class="reserve-dock">
+          <h3><b id="reserve-owner">Player A's reserve</b> <span id="reserve-total">81 pieces</span></h3>
+          <div class="reserve" id="reserve" aria-label="Choose a number to place"></div>
+          <p class="selection" id="selection">No number selected</p>
+        </div>
+        <button id="cancel" type="button" disabled>Clear selection</button>
+        <div class="win-guide"><h3>Three ways to win</h3><div class="families" aria-label="Winning ordered sequences"><span>3 &middot; 6 &middot; 9</span><span>1 &middot; 5 &middot; 7</span><span>2 &middot; 4 &middot; 8</span></div><p>Three adjacent pieces, all yours. Any straight line, either reading direction.</p></div>
+        <div class="actions"><button id="undo" type="button" disabled>Undo turn</button><button id="restart" type="button">New game</button></div>
+        <div id="restart-confirm" hidden><p>Replace the current game? Its saved turns will be removed.</p><button id="restart-yes" type="button">Yes, start fresh</button> <button id="restart-no" type="button">Keep playing</button></div>
+        <p id="storage" class="storage" role="status"></p>
+        <p id="platform" class="storage" role="status"></p>
+      </aside>
+    </div>
+    <section class="reading">
+      <details><summary>How to play &amp; prototype choices</summary><div id="rules"></div></details>
+      <details><summary>The numbers behind the idea</summary><div id="math"></div></details>
+      <details><summary>Play on your phone or offline</summary><p>This is a web prototype, not an App Store release. When served over HTTPS (or localhost), open it in your phone browser and use its Install app or Add to Home Screen menu. Availability depends on the browser. The app reports when its offline files are ready. On iPhone, use Safari's Share menu. Saves live on this device and browser only; private browsing or clearing site data can erase them. No accounts, network opponents, or tracking.</p><p>Direct-file desktop play also works by opening index.html; installation and offline caching require a web server. The printable kit is an independent way to play without a device.</p></details>
+    </section>
+    <noscript><p>This game needs JavaScript. Enable it to play, or use the printable PDF kit linked in the game folder.</p></noscript>
+  </main>
+  <footer>144 squares / 162 pieces / a Gaming Lab prototype</footer>
+</body>
+</html>

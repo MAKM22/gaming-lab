@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T23:35:00Z",
+  "title": "Design System: Gaming Lab / 144",
+  "extensions": {
+    "shadows": [
+      { "name": "mobile-tray", "value": "0 -4px 12px #20304e15", "purpose": "Separate the fixed reserve from scrolling content." }
+    ],
+    "motion": [
+      { "name": "button-feedback", "value": "background-color .12s", "purpose": "Hover feedback, disabled under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "phone-stack", "value": "760px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Action button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Touch-sized game controls.",
+      "html": "<button class=\"ds-button\">Undo turn</button>",
+      "css": ".ds-button { font: inherit; min-height:44px; padding:9px 14px; background:var(--paper,#fff); color:var(--ink,#20304e); border:1px solid var(--line,#bfcbd8); border-radius:5px; cursor:pointer; } .ds-button:hover { background:#e3eaf5; border-color:var(--ink,#20304e); } .ds-button:focus-visible { outline:3px solid #a05000; outline-offset:3px; } .ds-button:disabled { opacity:.48; }"
+    },
+    {
+      "name": "A circle piece",
+      "kind": "custom",
+      "refersTo": "player-a-piece",
+      "description": "Ownership by shape, label and color.",
+      "html": "<button class=\"ds-piece-a\" aria-label=\"Player A number 3\"><span>A</span>3</button>",
+      "css": ".ds-piece-a { position:relative; width:48px; height:48px; border:2px solid var(--a,#223c78); border-radius:50%; background:var(--a,#223c78); color:white; font:800 22px system-ui; } .ds-piece-a span { position:absolute; top:3px; left:0; width:100%; font-size:9px; } .ds-piece-a:hover { outline:2px solid #e9a32e; } .ds-piece-a:focus-visible { outline:3px solid #a05000; outline-offset:3px; }"
+    },
+    {
+      "name": "B square piece",
+      "kind": "custom",
+      "refersTo": "player-b-piece",
+      "description": "Square ownership distinct from A.",
+      "html": "<button class=\"ds-piece-b\" aria-label=\"Player B number 6\"><span>B</span>6</button>",
+      "css": ".ds-piece-b { position:relative; width:48px; height:48px; border:2px solid var(--b,#126158); border-radius:5px; background:var(--b,#126158); color:white; font:800 22px system-ui; } .ds-piece-b span { position:absolute; top:3px; left:0; width:100%; font-size:9px; } .ds-piece-b:hover { outline:2px solid #e9a32e; } .ds-piece-b:focus-visible { outline:3px solid #a05000; outline-offset:3px; }"
+    },
+    {
+      "name": "Square-size input",
+      "kind": "input",
+      "description": "Adjust board targets without shrinking below 44 pixels.",
+      "html": "<label class=\"ds-zoom\">Square size <input aria-label=\"Square size\" type=\"range\" min=\"44\" max=\"72\" value=\"48\"></label>",
+      "css": ".ds-zoom { font:12px system-ui; color:var(--ink,#20304e); } .ds-zoom input { width:100px; height:44px; accent-color:var(--ink,#20304e); vertical-align:middle; } .ds-zoom input:focus-visible { outline:3px solid #a05000; outline-offset:3px; }"
+    },
+    {
+      "name": "Game navigation",
+      "kind": "nav",
+      "description": "Simple app and paper-kit navigation.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">144 / Number strategy</a><a href=\"#\">Print the game kit</a></nav>",
+      "css": ".ds-nav { display:flex; gap:24px; justify-content:space-between; padding:20px 32px; border-bottom:1px solid var(--line,#bfcbd8); font:14px system-ui; } .ds-nav a { color:var(--ink,#20304e); text-underline-offset:4px; } .ds-nav a:hover { color:var(--a,#223c78); } .ds-nav a:focus-visible { outline:3px solid #a05000; outline-offset:3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The shared tabletop",
+    "overview": "This system describes the number-strategy app, not every future Gaming Lab project. The user approved a clean tabletop interface for casual phone pass-and-play and a matching large-print kit. A readable grid and explicit turn state carry the work; the interface uses no external typography or imagery.",
+    "keyCharacteristics": [
+      "Cool white surfaces and dark readable numbers.",
+      "A circles and B squares, labeled independently of color.",
+      "Touch-sized cells rather than a shrunken whole-board overview."
+    ],
+    "rules": [],
+    "dos": [
+      "Do keep owner letters and shapes alongside color.",
+      "Do preserve touch-sized cells and scroll navigation.",
+      "Do keep paper scale explicit and check the 100 mm bar."
+    ],
+    "donts": [
+      "Don't shrink 144 cells into tiny phone touch targets.",
+      "Don't hide failed saves or failed offline setup.",
+      "Don't turn reference constants into decorative gameplay claims."
+    ]
+  }
+}
